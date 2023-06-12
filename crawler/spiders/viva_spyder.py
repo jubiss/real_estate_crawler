@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+import os
 import scrapy
 from scrapy_selenium import SeleniumRequest
 from selenium.webdriver.common.by import By
@@ -16,13 +17,9 @@ class VivaSpider(scrapy.Spider):
     estado = 'pernambuco'
     cidade = 'recife'
     page = 1
-    #start_urls = [
-    #    'https://www.vivareal.com.br/aluguel/pernambuco/recife/'
-    #]
-    custom_settings = {
-        'CLOSESPIDER_PAGECOUNT': 3  #
-    }
+
     def start_requests(self):
+        self.html_directory_path = self.set_html_directory()
         url = f"https://www.vivareal.com.br/{self.tipo_venda}/{self.estado}/{self.cidade}/apartamento_residencial"
         yield SeleniumRequest(
             url=url,
@@ -32,7 +29,7 @@ class VivaSpider(scrapy.Spider):
     def parse(self, response):
         driver = response.meta['driver']
 
-        while self.page < 3:
+        while self.page < 90:
             yield from self.scrap_page(response)
             next_button = driver.find_element(By.XPATH, '//*[@id="js-site-main"]/div[2]/div[1]/section/div[2]/div[2]/div/ul/li[9]/button')
             driver.execute_script("arguments[0].click();",next_button)
@@ -43,25 +40,8 @@ class VivaSpider(scrapy.Spider):
             response = HtmlResponse(url=driver.current_url, body=page_source, encoding='utf-8')
             self.page += 1
 
-
-    def wait_for_page_load(self, seconds):
-        import time
-        time.sleep(seconds)
-
-    def get_click_script(self):
-        script = """
-            var nextButton = document.querySelector('#js-site-main > div:nth-child(2) > div.section > div.pagination > ul > li:nth-child(9) > button');
-            if (nextButton) {
-                nextButton.click();
-            }
-        """
-        return script
-    
     def scrap_page(self, response):
-        filename = fr"{crawler_path}\{self.tipo_venda}\{self.estado}\{self.cidade}\page_{self.page}_date_{datetime.now().strftime('%Y-%m-%d')}.html"
-        Path(filename).write_bytes(response.body)
-        self.log(f"Saved file: {filename}")
-
+        self.save_html_in_folder(response)
         apartments = response.css('article.property-card__container.js-property-card')
         for apartment in apartments:
             title = ' '.join(apartment.css('.property-card__title::text').getall()).strip()
@@ -98,3 +78,22 @@ class VivaSpider(scrapy.Spider):
                 scraped_site='VivaReal'
             )
             yield item
+
+    def wait_for_page_load(self, seconds):
+        import time
+        time.sleep(seconds)
+
+    def set_html_directory(self):
+        parent_dir = fr"{crawler_path}\spyder_html\viva_real_html\{self.tipo_venda}\{self.estado}\{self.cidade}"
+        directory = f'date_{datetime.now().strftime("%Y-%m-%d")}'
+        path = os.path.join(parent_dir, directory)
+        try:
+            os.mkdir(path)
+        except:
+            pass
+        return path
+
+    def save_html_in_folder(self, response):
+        filename = fr"{self.html_directory_path}\page_{self.page}_date_{datetime.now().strftime('%Y-%m-%d')}.html"
+        Path(filename).write_bytes(response.body)
+        self.log(f"Saved file: {filename}")
