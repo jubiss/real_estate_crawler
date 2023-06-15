@@ -1,7 +1,7 @@
 README - Projeto Scraper de Sites Imobiliários
 
 
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/jubiss/Porfolio/blob/main/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/jubiss/real_estate_crawler/blob/master/README.md)
 [![Em progresso](https://img.shields.io/badge/status-em%20progresso-yellow.svg)]
 
 ## Índice
