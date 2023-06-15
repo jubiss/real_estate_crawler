@@ -1,4 +1,4 @@
-README - Real Estate Websites Scraper
+# Real Estate Websites Scraper (Scrapy-Selenium)
 
 [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/jubiss/real_estate_crawler/blob/master/READMEpt-br.md)
 [![Em progresso](https://img.shields.io/badge/status-in%20progress-yellow.svg)]
