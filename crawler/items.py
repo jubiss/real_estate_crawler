@@ -7,6 +7,7 @@ import scrapy
 
 class PropertyItem(scrapy.Item):
     title = scrapy.Field()
+    description = scrapy.Field()
     address = scrapy.Field()
     area = scrapy.Field()
     rooms = scrapy.Field()
