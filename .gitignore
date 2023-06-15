@@ -10,6 +10,9 @@ chromedriver.exe
 # C extensions
 *.so
 
+# Testing Using Selenium
+find_button.py
+test*
 # Distribution / packaging
 .Python
 build/
