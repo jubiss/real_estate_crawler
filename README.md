@@ -1,14 +1,25 @@
 README - Real Estate Websites Scraper
 
-[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/jubiss/Porfolio/blob/main/README.pt-br.md)
-[![Em progresso](https://img.shields.io/badge/status-in%20progress-yellow.svg)](README_pt-br.md)
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/jubiss/real_estate_crawler/blob/master/READMEpt-br.md)
+[![Em progresso](https://img.shields.io/badge/status-in%20progress-yellow.svg)]
 
 ## Table of Contents
 
+- [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
 - [System Requirements](#system-requirements)
 - [Project Structure](#project-structure)
+
+
+## Description
+
+This project is a scraper developed using the Scrapy-Selenium framework to collect real estate data from specific websites. The scraper was initially configured to gather information from the VivaReal website, with a focus on the city of Recife. However, the project is constantly evolving and aims to expand to include other sites such as ZapImóveis and ImovelWeb.
+
+One of the main challenges encountered in this project was dealing with dynamic real estate listing websites. To overcome this challenge, we utilized a combination of Scrapy and Selenium. This approach allows us to interact with dynamic elements on the web pages, ensuring accurate and up-to-date data extraction.
+
+Furthermore, during the development of the scraper, we prioritized the adoption of good development practices. We implemented a time interval between requests made by the scraper to avoid overloading the websites' servers and ensure compliance with their access policies. We followed the recommended structure by Scrapy, utilizing pipelines and items for organized and efficient manipulation of the collected data.
+
 
 ## Installation
 
