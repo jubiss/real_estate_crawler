@@ -45,6 +45,7 @@ class VivaSpider(scrapy.Spider):
         apartments = response.css('article.property-card__container.js-property-card')
         for apartment in apartments:
             title = ' '.join(apartment.css('.property-card__title::text').getall()).strip()
+            description = None
             address = ' '.join(apartment.css('.property-card__address::text').getall()).strip()
             area = ' '.join(apartment.css('.property-card__detail-area::text').getall()).strip()
             rooms = ' '.join(apartment.css('.property-card__detail-room .js-property-card-value::text').getall()).strip()
@@ -64,6 +65,7 @@ class VivaSpider(scrapy.Spider):
 
             item = PropertyItem(
                 title=title,
+                description=description,
                 address=address,
                 area=area,
                 rooms=rooms,
